@@ -1,25 +1,24 @@
-$(function () {
-    var active = 'active'
+$('[data-group]').each(function() {
 
-    $('.animais .tab-menu a').first().addClass(active)
+	var $allTarget = $(this).find('[data-target]'),
+			$allClick = $(this).find('[data-click]'),
+			activeClass = 'active';
+	
+	console.log($allClick);
 
-    $('.animais .item').first().addClass(active)
-    $('.animais .tab-menu a').click(function (e) {
-        e.preventDefault()
-        var itemId = $(this).attr('href')
-        $('.animais .tab-menu a, .animais .item').removeClass(active)
-        $(this).addClass(active)
-        $(itemId).addClass(active)
-    })
+	$allClick.first().addClass(activeClass);
+	$allTarget.first().addClass(activeClass);
 
-    $('.florestas .tab-menu a').first().addClass(active)
+	$allClick.click(function(e) {
+		e.preventDefault();
 
-    $('.florestas .item').first().addClass(active)
-    $('.florestas .tab-menu a').click(function (e) {
-        e.preventDefault()
-        var itemId = $(this).attr('href')
-        $('.florestas .tab-menu a, .florestas .item').removeClass(active)
-        $(this).addClass(active)
-        $(itemId).addClass(active)
-    })
-})
+		var id = $(this).data('click'),
+				$target = $('[data-target="' + id + '"]');
+
+		$allClick.removeClass(activeClass)
+		$allTarget.removeClass(activeClass);
+
+		$target.addClass(activeClass);
+		$(this).addClass(activeClass);
+	});
+});
